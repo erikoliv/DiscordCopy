@@ -63,7 +63,7 @@ export default function PaginaInicial() {
                     alignItems: 'center', 
                     justifyContent: 'center',
                     // backgroundColor: appConfig.theme.colors.primary[500],
-                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/12/amazon-rainforest-1024x576.jpg)',
+                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/07/earthrise.jpg)',
                     backgroundRepeat: 'no-repeat', 
                     backgroundSize: 'cover', 
                     backgroundBlendMode: 'multiply',
