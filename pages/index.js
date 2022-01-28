@@ -1,39 +1,7 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React, { useState } from 'react';
 import appConfig from '../config.json'
-
-function GlobalStyle() {
-    return (
-        <style global jsx> {`
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                list-style: none;
-            }
-
-            body {
-                font-family: 'Open Sans', Sans-Serif;
-            }
-
-            /* App fit for Height*/
-            html, body, #__next {
-                min-height: 100vh;
-                display: flex;
-                flex: 1;
-            }
-
-            #__next {
-                flex: 1;
-            }
-
-            #__next > * {
-                flex: 1;
-            }
-
-            /* ./App fir Height */
-        `}</style>
-    );
-}
+import { useRouter } from "next/router"
 
 function Title(props) {
     const Tag = props.tag || 'h1';
@@ -52,20 +20,23 @@ function Title(props) {
 }
 
 export default function PaginaInicial() {
-    const username = 'guvitorino';
+    // const username = 'erikoliv';
+    const [username, setUsername] = React.useState('erikoliv');
+    const roteamento = useRouter();
+    // const characterCount = React.useState();
 
     return (
         <>
-            <GlobalStyle />
+            
             <Box
                 styleSheet={{
-                    display: 'flex', 
-                    alignItems: 'center', 
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     // backgroundColor: appConfig.theme.colors.primary[500],
                     backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/07/earthrise.jpg)',
-                    backgroundRepeat: 'no-repeat', 
-                    backgroundSize: 'cover', 
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
                     backgroundBlendMode: 'multiply',
                 }}
             >
@@ -80,8 +51,8 @@ export default function PaginaInicial() {
                         },
                         width: '100%',
                         maxWidth: '500px',
-                        borderRadius: '5px', 
-                        padding: '32px', 
+                        borderRadius: '5px',
+                        padding: '32px',
                         margin: '16px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                         backgroundColor: appConfig.theme.colors.neutrals[700],
@@ -90,16 +61,23 @@ export default function PaginaInicial() {
                     {/* Formulário */}
                     <Box
                         as="form"
+                        onSubmit = {function Submit(event) {
+                            // Prevenir o comportamento Default de um FORM
+                            // Que é realizar um refresh ao clicar em um botão do tipo submit
+                            event.preventDefault()
+                            // console.log("Alguem submeteu o form")
+                            roteamento.push('/chat')
+                        }}
                         styleSheet={{
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            alignItems: 'center', 
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
                             justifyContent: "spaceBetween",
-                            width: { 
-                                xs: '100%', 
-                                sm: '50%' 
-                            }, 
-                            textAlign: 'center', 
+                            width: {
+                                xs: '100%',
+                                sm: '50%'
+                            },
+                            textAlign: 'center',
                             marginBottom: '32px',
                         }}
                     >
@@ -132,6 +110,7 @@ export default function PaginaInicial() {
                                 }}
                                 src={`https://github.com/${username}.png`}
                             />
+
                             <Text
                                 variant="body4"
                                 styleSheet={{
@@ -139,7 +118,7 @@ export default function PaginaInicial() {
                                     backgroundColor: appConfig.theme.colors.neutrals[900],
                                     padding: '3px 10px',
                                     borderRadius: '1000px',
-                                    
+
                                 }}
                             >
                                 {username}
@@ -148,6 +127,21 @@ export default function PaginaInicial() {
                         {/* Photo Area */}
                         
                         <TextField
+                            // inputProps={{ minLength: 2 }}
+                            value = {username}
+                            onChange={function Handler(event){
+                                // setCharacterCout(event.target.value.length)
+                                // Onde está o valor?
+                                const valor = event.target.value;
+                                const charCount = event.target.value.length;
+                                
+                                // if (charCount < 2) {
+                                //     //alert('MENOS DE 2 CARACTERES')
+                                // }
+                                //Trocar o valor da variável
+                                //Atraves do React
+                                setUsername(valor);
+                            }}
                             fullWidth
                             textFieldColors={{
                                 neutral: {
@@ -155,21 +149,22 @@ export default function PaginaInicial() {
                                     mainColor: appConfig.theme.colors.neutrals[900],
                                     mainColorHighlight: appConfig.theme.colors.primary[500],
                                     backgroundColor: appConfig.theme.colors.neutrals[800],
-                                    
+
                                 },
                             }}
                         />
                         <Button
-                        
+
                             type='submit'
                             label='Entrar'
+                            
                             fullWidth
                             buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
                                 mainColor: appConfig.theme.colors.primary[500],
                                 mainColorLight: appConfig.theme.colors.primary[400],
                                 mainColorStrong: appConfig.theme.colors.primary[600],
-                                
+
                             }}
                         />
                     </Box>
